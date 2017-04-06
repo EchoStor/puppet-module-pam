@@ -469,6 +469,12 @@ Boolean to manage the inclusion of the nsswitch class.
 
 - *Default*: true
 
+manage_limits
+------------------
+Boolean to manage the inclusion of the limits class.
+
+- *Default*: true
+
 ===
 
 # pam::limits::fragment define
