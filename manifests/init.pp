@@ -55,6 +55,7 @@ class pam (
   $system_auth_ac_session_lines        = undef,
   $vas_major_version                   = '4',
   $manage_nsswitch                     = true,
+  $manage_limits                       = true,
 ) {
 
   if is_string($manage_nsswitch) == true {
@@ -1282,7 +1283,16 @@ class pam (
     'RedHat', 'Suse', 'Debian': {
 
       include ::pam::accesslogin
-      include ::pam::limits
+
+      if is_string($manage_limits) == true {
+        $manage_limits_real = str2bool($manage_limits)
+      } else {
+        $manage_limits_real = $manage_limits
+      }
+
+      if $manage_limits_real == true {
+        include ::pam::limits
+      }
 
       package { $my_package_name:
         ensure => installed,
